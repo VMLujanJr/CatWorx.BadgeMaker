@@ -1,6 +1,7 @@
 ﻿// Import Correct Packages
 using System;
 using System.Collections.Generic; // contains Dictionary and List methods
+using System.Threading.Tasks; // contains the Task object
 
 namespace CatWorx.BadgeMaker
 {
@@ -39,11 +40,12 @@ namespace CatWorx.BadgeMaker
             // This is important!
             return employees;
         }
-        static void Main(string[] args) // Entry Point
+        async static Task Main(string[] args) // Entry Point
         {
             List<Employee> employees = GetEmployees(); // List of <Employee> instances instead of list of <strings>
             Util.PrintEmployees(employees);
             Util.MakeCSV(employees);
+            await Util.MakeBadges(employees);
         }
     }
 }
