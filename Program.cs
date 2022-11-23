@@ -1,5 +1,6 @@
-﻿using System;
-using System.Collections.Generic; // to use the dictionary and lists
+﻿// Import Correct Packages
+using System;
+using System.Collections.Generic; // contains Dictionary and List methods
 
 namespace CatWorx.BadgeMaker
 {
@@ -38,22 +39,11 @@ namespace CatWorx.BadgeMaker
             // This is important!
             return employees;
         }
-        // Any method that does not return a value must be defined to return void
-        static void PrintEmployees(List<Employee> employees) // List of <Employee> instances instead of list of <strings>
-        {
-            for (int i = 0; i < employees.Count; i++)
-            {
-                // each iteration in employees is now an Employee instance
-                string template = "{0,-10}\t{1,-20}\t{2}";
-
-                // new code
-                Console.WriteLine(String.Format(template, employees[i].GetId(), employees[i].GetFullName(), employees[i].GetPhotoUrl()));
-            }
-        }
         static void Main(string[] args) // Entry Point
         {
             List<Employee> employees = GetEmployees(); // List of <Employee> instances instead of list of <strings>
-            PrintEmployees(employees);
+            Util.PrintEmployees(employees);
+            Util.MakeCSV(employees);
         }
     }
 }
