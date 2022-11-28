@@ -7,45 +7,12 @@ namespace CatWorx.BadgeMaker
 {
     class Program
     {
-        static List<Employee> GetEmployees() // using custom type <Employee> instead of <string>; returns a list of Employee instances instead of a list of strings
-        {
-            // I will return a List of strings
-            List<Employee> employees = new List<Employee>(); // using custom type <Employee> instead of <string>
-            while (true)
-            {
-                // ask for FIRST NAME
-                Console.WriteLine("Enter first name (leave empty to exit): ");
-                string firstName = Console.ReadLine() ?? ""; // if I get null = ""
-                if (firstName == "")
-                {
-                    break;
-                }
-
-                // ask for LAST NAME
-                Console.WriteLine("Enter last name: ");
-                string lastName = Console.ReadLine() ?? ""; // if I get null = ""
-
-                // ask for ID
-                Console.WriteLine("Enter ID: ");
-                int id = Int32.Parse(Console.ReadLine() ?? ""); // if I get null = ""
-
-                // ask for ID
-                Console.WriteLine("Enter Photo URL: ");
-                string photoUrl = Console.ReadLine() ?? ""; // if I get null = ""
-
-                // create new Employee instance
-                Employee currentEmployee = new Employee(firstName, lastName, id, photoUrl);
-                employees.Add(currentEmployee);
-            }
-            // This is important!
-            return employees;
-        }
         async static Task Main(string[] args) // Entry Point
         {
-            List<Employee> employees = GetEmployees(); // List of <Employee> instances instead of list of <strings>
-            Util.PrintEmployees(employees);
-            Util.MakeCSV(employees);
-            await Util.MakeBadges(employees);
+            List<Employee> employees = await PeopleFetcher.GetFromApi(); // returns either api or manual peoplefetcher
+            Util.PrintEmployees(employees); // THIS METHOD PRINTS A LIST OF EMPLOYEES
+            Util.MakeCSV(employees); // THIS METHOD CREATES AN EXCEL SHEET WITH EMPLOYEE NAMES, ETC.
+            await Util.MakeBadges(employees); // THIS METHOD CREATES BADGES
         }
     }
 }
